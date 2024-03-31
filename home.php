@@ -71,7 +71,7 @@ color: green;
   <div class="liveAlertPlaceholder"></div>
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
+  <div class="container">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
     <img class="navbar-brand" src="./imgs/download.png" alt="">
         <div>
