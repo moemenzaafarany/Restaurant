@@ -41,6 +41,7 @@ $result = mysqli_query($conn, $sql);
         <!-- <h1>Booking List</h1> -->
         <!-- <hr /> -->
         <button onclick="location.href='invoice.php'" class="btn btn-success" ><i class="fa-solid fa-file-invoice"></i> Daily Invoice</button>
+        <button onclick="location.href='finish.php'" class="btn btn-success" ><i class="fa-brands fa-first-order"></i> Finished Orders</button>
         <!-- <input class="form-control mt-5" list="datalistOptions" id="search" placeholder="Search by date..."> -->
 
     <div id="display">
@@ -196,5 +197,12 @@ function toggleButton(event) {
 
 // Add event listener for saving button states
 window.addEventListener("beforeunload", saveButtonStates);
+
+function clearLocalStorage() {
+  localStorage.clear();
+}
+
+// Schedule the function to run once per day
+setInterval(clearLocalStorage, 24 * 60 * 60 * 1000);
     </script>
 </div>
