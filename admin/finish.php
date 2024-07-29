@@ -1,5 +1,5 @@
 <?php
-include "./includes/conn.php";
+include "../includes/conn.php";
 session_start();
 
 
@@ -13,11 +13,11 @@ ORDER BY order_list.order_id DESC;";
 
 $result = mysqli_query($conn, $sql);
 ?>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="css/home.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Dakahlia kitchen</title>
     <style>
@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $sql);
     </style>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container">
-    <img class="" src="./imgs/download.png" alt="">
+    <img class="" src="../imgs/download.png" alt="">
     <a class="navbar-brand" href="#">Finished Orders</a>
 
   </div>
@@ -50,7 +50,6 @@ $result = mysqli_query($conn, $sql);
 
 <table class="table mt-3 table-columns " >
   <th>Username</th>
-  <th>Email</th>
   <th>Item Name</th>
   <th>Quantity</th>
   <th>Price</th>
@@ -65,9 +64,8 @@ $result = mysqli_query($conn, $sql);
         <td><?php echo $row[1];?></td>
         <td><?php echo $row[2];?></td>
         <td><?php echo $row[3];?></td>
-        <td><?php echo $row[4];?></td>
-        <td><?php echo $row[5];?> L.E</td>
-        <td><?php echo $row[6];?></td>
+        <td><?php echo $row[4];?>L.E</td>
+        <td><?php echo $row[5];?></td>
 
         <td>
 <form action="item_list_action.php" method="post">

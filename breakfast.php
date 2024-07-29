@@ -30,42 +30,7 @@
     <link rel="stylesheet" href="css/alert.css">
     <link rel="stylesheet" href="css/home.css">
     
-    <style>
-        body {
-    background: rgb(190, 171, 196)
-}
-
-
-.container {
-width: 100%;
-margin: 30px auto;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-input[type=range] {
-width: 100%;
-}
-
-a {
-flex: 0 0 auto;
-width: 40px;
-height: 40px;
-border-radius: 100%;
-background: white;
-font-size: 24px;
-border: 1px solid lightgrey;
-cursor: pointer;
--webkit-appearance: none;
-margin: 0 10px;
-text-decoration: none;
-padding-left: 12px;
-color: green;
-}
-
-
-    </style>
+    
     </head>
   <body>
   <div class="liveAlertPlaceholder"></div>
@@ -77,6 +42,7 @@ color: green;
         <div>
            <h4> Welcome, <?php echo $_SESSION['DeviceName']; ?></h4>
         </div>
+        <a class="nav-link" href="checkout.php"><i class="fa-solid fa-cart-shopping"></i></a>
   </div>
 </nav>
 
@@ -88,17 +54,20 @@ color: green;
     // require "database/dbconfig.php";
     include "./includes/conn.php";
 
-    $query = "SELECT * FROM items";
+    $query = "SELECT * FROM items where category='Breakfast'";
     $query_run = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
         foreach ($query_run as $row) {
             ?>
-    <div class="col-lg-6 col-12">
-        <div class="card" style="width: 18rem;">
+    <div class="col-lg-4 col-12">
+        <div class="card">
+              <?php
+                $imageData = $row['img'];
+              ?>
+              <img src="imgs/<?php echo($imageData); ?>" alt="" class="h-50 w-100">
             <div class="card-body">
-            <form action="process_order_action.php" method="post">
-              <img src="data:img/png;base64, . alt="">
+            <form action="addToCart_action.php" method="post">
                 <h5 class="card-title"><?php echo $row['item_name'] ?></h5>
                 <p class="card-text"><?php echo $row['price'] ?>L.E</p>
                 <p class="card-text"><div class="container">

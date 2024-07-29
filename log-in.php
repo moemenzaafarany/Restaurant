@@ -1,78 +1,53 @@
 <?php
-    session_start(); 
-    include 'includes/db.php';
+session_start(); 
+include 'includes/db.php';
 
-    class login extends database{
-        public function login(){
+class login extends database{
+    public function login(){
+        // $name = $_POST['DeviceName'];
+        // $query = "insert into users (`DeviceName`) values ('$name')";
+        // $conn = mysqli_connect($this->servername,$this->username, $this->password,$this->db_name);
+        // mysqli_query($conn,$query);
 
-            if (isset($_POST['email']) && isset($_POST['password'])) {
+        if (isset($_POST['DeviceName'])) {
+            $name = trim($_POST['DeviceName']);
+            if (empty($name)) {
+                header("Location: login.php?error=Device Name is required");
+            } else {
+                $conn = mysqli_connect($this->servername,$this->username, $this->password,$this->db_name);
+                $sql = $conn->prepare("SELECT * FROM users WHERE DeviceName=?");
+                $sql->bind_param("s", $name);
+                $sql->execute();
+                $result = $sql->get_result();
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    if ($row['DeviceName'] === $name) {
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['DeviceName'] = $row['DeviceName'];
+                        // header("Location: Home.php");
 
-                function validate($data){
+                        $selectedOption = isset($_POST['option']) ? $_POST['option'] : '';
 
-                //    $data = trim($data);
+                        $links = array(
+                            'Breakfast' => 'http://localhost/dak_kitchen/breakfast.php',
+                            'Lanch' => 'http://localhost/dak_kitchen/lanch.php'
+                        );
+                        header("Location: " . $links[$selectedOption]);
 
-                //    $data = stripslashes($data);
 
-                $data = htmlspecialchars($data);
-
-                return $data;
-
-                }
-
-                $email = validate($_POST['email']);
-
-                $pass = validate($_POST['password']);
-
-                if (empty($email)) {
-
-                    header("Location: login.php?error=Email is required");
-
-                }else if(empty($pass)){
-
-                    header("Location: login.php?error=Password is required");
-
-                }else{
-
-                    $sql = "SELECT * FROM users WHERE email='$email' AND password='$pass'";
-                    $conn = mysqli_connect($this->servername,$this->username, $this->password,$this->db_name);
-                    $result = mysqli_query($conn, $sql);
-
-                    if (mysqli_num_rows($result) > 0 ) {
-
-                        $row = mysqli_fetch_assoc($result);
-
-                        if ($row['email'] === $email && $row['password'] === $pass) {
-
-                            echo "Logged in!";
-                            
-                            $_SESSION['user_id'] = $row['user_id'];
-
-                            $_SESSION['name'] = $row['name'];
-
-                            $_SESSION['email'] = $row['email'];
-
-                            $_SESSION['password'] = $row['password'];
-
-                            header("Location: Home.php");
-                            
-                        }else{
-
-                            header("Location: login.php?error=Incorect Username or password");
-
-                        }
-
-                    }else{
-
-                        header("Location:login.php?error=Incorect User name or password");
-
+                    } else {
+                        header("Location: login.php?error=Incorect Username or password");
                     }
-
+                }else{
+                    $insertQuery = "INSERT INTO users (DeviceName) VALUES (?)";
+                    $insertStmt = $conn->prepare($insertQuery);
+                    $insertStmt->bind_param('s', $name);
+                    $insertStmt->execute();
+			// header("Location:Home.php");
                 }
-
-            }else{
-
-                header("Location:login.php");
-
+            }
+        } else {
+            header("Location:login.php");
         }
     }
 }

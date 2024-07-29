@@ -6,7 +6,7 @@ class database{
     public $servername = "localhost";
     public $username = "root";
     public $password = "";
-    public $db_name="booking";
+    public $db_name="dak_kitchen";
 
     public function connect(){
         // Create connection

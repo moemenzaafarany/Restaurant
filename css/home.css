@@ -18,3 +18,37 @@ height: 100px;
 .profile{
 margin-right: 30px;
 }
+
+body {
+    background: rgb(190, 171, 196)
+}
+
+
+.container {
+width: 100%;
+margin: 30px auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+input[type=range] {
+width: 100%;
+}
+
+.minus,
+.plus {
+flex: 0 0 auto;
+width: 40px;
+height: 40px;
+border-radius: 100%;
+background: white;
+font-size: 24px;
+border: 1px solid lightgrey;
+cursor: pointer;
+-webkit-appearance: none;
+margin: 0 10px;
+text-decoration: none;
+padding-left: 12px;
+color: green;
+}

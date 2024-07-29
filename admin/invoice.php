@@ -1,6 +1,6 @@
 <?php 
-include "./includes/conn.php";
-    require './fpdf/fpdf.php';
+include "../includes/conn.php";
+    require '../fpdf/fpdf.php';
 
     $pdf = new FPDF('P','mm','A3');
 

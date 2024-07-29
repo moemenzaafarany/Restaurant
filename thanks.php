@@ -84,67 +84,7 @@ color: green;
 
 <div class="container py-5">
   <div class="row mt-3">
-    <?php
-    // require "database/dbconfig.php";
-    include "./includes/conn.php";
-
-    $query = "SELECT * FROM items";
-    $query_run = mysqli_query($conn, $query);
-
-    if (mysqli_num_rows($query_run) > 0) {
-        foreach ($query_run as $row) {
-            ?>
-    <div class="col-lg-6 col-12">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <form action="process_order_action.php" method="post">
-              <img src="data:img/png;base64, . alt="">
-                <h5 class="card-title"><?php echo $row['item_name'] ?></h5>
-                <p class="card-text"><?php echo $row['price'] ?>L.E</p>
-                <p class="card-text"><div class="container">
-            <a class="minus">-</a>
-            <input class="range" type="range" name="qty" min="1" step="1" value="1">
-            <a class="plus">+</a>
-            <output for="range" class="output">1</output>
-            </div></p>
-            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
-            <input type="hidden" name="item_id" value="<?php echo $row['item_id'] ?>">
-        <button type="submit" class="btn btn-primary liveAlertBtn" style="width: 70px;">Order</button>
-        </form>
-    </div>
-    </div>
+        <h4>Thanks Your Order In Process</h4>
 </div>
-<?php }
-}?>
-
-</div>
-<script>
-    
-
-$(document).ready(function() {
-  $(".minus").click(function(event) {
-    var output = $(this).siblings(".output");
-    var range = $(this).siblings(".range");
-    var currentValue = parseInt(range.val(), 10);
-    if (currentValue > 1) {
-      range.val(currentValue - 1).change();
-      output.text(range.val());
-    }
-  });
-
-  $(".plus").click(function(event) {
-    var output = $(this).siblings(".output");
-    var range = $(this).siblings(".range");
-    var currentValue = parseInt(range.val(), 10);
-    range.val(currentValue + 1).change();
-    output.text(range.val());
-  });
-
-  $(".range").on('input change', function(event) {
-    $(this).siblings(".output").text($(event.currentTarget).val());
-  });
-});
-</script>
   </body>
-    <script src="js/alert.js"></script>
 </html>

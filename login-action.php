@@ -2,10 +2,9 @@
     require './includes/conn.php';
     include 'log-in.php';
 
-    $email = $_POST['email'];
-    $pass = $_POST['password'];
+    $name = $_POST['DeviceName'];
 
     $login = new login();
     $con = $login->connect();
-    $login->login($con,$email,$pass);
+    $login->login($con,$name);
 ?>
