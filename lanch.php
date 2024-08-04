@@ -28,7 +28,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="css/alert.css">
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="css/home.css">
+    
     
     </head>
   <body>
@@ -38,35 +39,34 @@
   <div class="container">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
     <img class="navbar-brand" src="./imgs/download.png" alt="">
-        <div>
-           <h4> Welcome, <?php echo $_SESSION['DeviceName']; ?></h4>
-        </div>
-        <a class="nav-link" href="checkout.php"><i class="fa-solid fa-cart-shopping"></i></a>
   </div>
 </nav>
 
     
-
 <div class="container py-5">
   <div class="row mt-3">
     <?php
-    // require "database/dbconfig.php";
+
     include "./includes/conn.php";
 
-    $query = "SELECT * FROM items where category='Lanch'";
+    $query = "SELECT * FROM items where category='Lunch'";
     $query_run = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
         foreach ($query_run as $row) {
             ?>
-    <div class="col-lg-4 col-12 gap-5">
+    <div class="col-lg-3 col-12 gap-3 p-2">
+      <form action="addToCart_action.php" method="post">
+        
+        <!-- <input type="submit" value="Order" class="btn btn-primary liveAlertBtn" style="width: 70px;"> -->
         <div class="card">
-              <?php
+          <?php
                 $imageData = $row['img'];
-              ?>
+                ?>
+                <button class="card-button" type="submit">
               <img src="imgs/<?php echo($imageData); ?>" alt="" class="h-50 w-100">
+            </button>
             <div class="card-body">
-            <form action="addToCart_action.php" method="post">
                 <h5 class="card-title"><?php echo $row['item_name'] ?></h5>
                 <p class="card-text"><?php echo $row['price'] ?>L.E</p>
                 <p class="card-text"><div class="container">
@@ -77,7 +77,6 @@
             </div></p>
             <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
             <input type="hidden" name="item_id" value="<?php echo $row['item_id'] ?>">
-        <button type="submit" class="btn btn-primary liveAlertBtn" style="width: 70px;">Order</button>
         </form>
     </div>
     </div>
@@ -86,9 +85,60 @@
 }?>
 
 </div>
-<script>
-    
 
+    <div class="col-lg-4">
+      <div class="sidebar">
+        <?php
+        $user_id = $_SESSION['user_id'];
+        $query = "SELECT *
+                  FROM cart
+                  INNER JOIN items ON cart.item_id = items.item_id
+                  WHERE cart.user_id = '$user_id'";
+        
+        $query_run = mysqli_query($conn, $query);
+        if (mysqli_num_rows($query_run) > 0) {
+
+          echo '<h1>Your Cart</h1>';
+
+          echo '<form action="process_order_action.php" method="post">';
+          echo '<table class="table">';
+          echo '<thead>';
+          echo '<tr>';
+          echo '<th>Product</th>';
+          echo '<th>Quantity</th>';
+          echo '<th>Price</th>';
+          echo '<th>Total</th>';
+          echo '</tr>';
+          echo '</thead>';
+          echo '<tbody>';
+
+          while ($row = mysqli_fetch_assoc($query_run)) {
+            // Assuming `item_name`, `price`, and `qty` columns exist
+            echo '<tr>';
+            echo '<td>' . htmlspecialchars($row['item_name']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['qty']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['price']) . '</td>';
+            echo '<td>' . htmlspecialchars($row['price'] * $row['qty']) . '</td>';
+            echo '</tr>';
+
+            echo '<input type="hidden" name="user_id" value="' . htmlspecialchars($_SESSION['user_id']) . '">';
+            echo '<input type="hidden" name="item_id[]" value="' . htmlspecialchars($row['item_id']) . '">';
+            echo '<input type="hidden" name="qty[]" value="' . htmlspecialchars($row['qty']) . '">';
+          }
+
+          echo '</tbody>';
+          echo '</table>';
+          echo '<button class="checkout-btn" type="submit">Proceed to Checkout</button>';
+          echo '</form>';
+        } else {
+          echo '<p>Your cart is empty.</p>';
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
 $(document).ready(function() {
   $(".minus").click(function(event) {
     var output = $(this).siblings(".output");

@@ -89,71 +89,10 @@ $result = mysqli_query($conn, $sql);
     }
     setInterval('autoRefresh()', 5000);
 
-//     const button = document.querySelector('.btn')
-//     button.addEventListener('click', () => {
-//   // Disable the button
-//   button.parentNode.removeChild(button);
-
-// })
-
-
-// if (localStorage.getItem("buttonEdited") === "true") {
-//   hideBox();
-// }
-
-
-// window.onload = function() {
-//   hideBox();
-// };
-
-
-// function hideBox() {
-//   const button = document.querySelector(".btn");
-//   button.classList.add("hide");
-//   localStorage.setItem("buttonEdited", "true");
-// }
-
-
-// document.querySelector(".btn").addEventListener("click", function() {
-//     const button = document.querySelector(".btn");
-//     hideBox();
-// });
-
 
 // Get all buttons
 const buttons = document.getElementsByClassName("finish-button");
 
-// Hide button function
-// function hidebtn(index) {
-//   return function () {
-//     this.classList.add("hide");
-//     localStorage.setItem("buttonEdited", "true");
-//   };
-// }
-
-// // Initialize hide function
-// function initializeHide(index) {
-//   buttons[index].classList.add("hide");
-//   localStorage.setItem("buttonEdited", "true");
-// }
-
-// // Check if a button has been edited before
-// if (localStorage.getItem("buttonEdited") === "true") {
-//   for (let i = 0; i < buttons.length; i++) {
-//     initializeHide(i);
-//   }
-// }
-
-// // Add event listener for hiding buttons
-// window.onload = function () {
-//   for (let i = 0; i < buttons.length; i++) {
-//     // Call hidebtn with the correct this context using bind()
-//     buttons[i].addEventListener("click", hidebtn(i).bind(buttons[i]));
-//   }
-// };
-
-// Get all buttons
-// const buttons = document.getElementsByClassName("btn");
 const buttonsArray = Array.from(buttons);
 
 // Button states in local storage

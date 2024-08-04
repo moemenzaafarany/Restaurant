@@ -29,8 +29,8 @@ class login extends database{
                         $selectedOption = isset($_POST['option']) ? $_POST['option'] : '';
 
                         $links = array(
-                            'Breakfast' => 'http://localhost/dak_kitchen/breakfast.php',
-                            'Lanch' => 'http://localhost/dak_kitchen/lanch.php'
+                            'Breakfast' => 'http://localhost/Restaurant/breakfast.php',
+                            'Lanch' => 'http://localhost/Restaurant/lanch.php'
                         );
                         header("Location: " . $links[$selectedOption]);
 
