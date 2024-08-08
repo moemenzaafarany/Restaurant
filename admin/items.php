@@ -63,8 +63,8 @@ $result = mysqli_query($conn, $sql);
         <td><?php echo $row[4];?></td>
 
         <td>
-<form action="<?php echo htmlspecialchars('active_action.php?item_id=' . $row[0]); ?>" method="post">
-    <select name="active" id="">
+<form action="<?php echo 'active_action.php?item_id=' . $row[0] ?>" method="POST">
+    <select name="active">
         <option value="1" <?php echo $row['active'] == 1 ? 'selected' : ''; ?>>Active</option>
         <option value="0" <?php echo $row['active'] == 0 ? 'selected' : ''; ?>>Inactive</option>
     </select>

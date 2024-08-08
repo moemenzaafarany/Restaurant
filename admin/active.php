@@ -4,6 +4,7 @@ include '../includes/db.php';
 
 class active extends database{
     public function update(){
+        
         $active = $_POST['active'];
 
         $id = $_GET['item_id'];
