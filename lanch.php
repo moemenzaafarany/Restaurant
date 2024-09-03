@@ -43,19 +43,20 @@
 </nav>
 
     
+
 <div class="container py-5">
   <div class="row mt-3">
     <?php
 
     include "./includes/conn.php";
 
-    $query = "SELECT * FROM items where category='Lunch'";
+    $query = "SELECT * FROM items where category='Lunch' And active='1'";
     $query_run = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
         foreach ($query_run as $row) {
             ?>
-    <div class="col-lg-3 col-12 gap-3 p-2">
+    <div class="col-lg-5 col-12 gap-3 p-2">
       <form action="addToCart_action.php" method="post">
         
         <!-- <input type="submit" value="Order" class="btn btn-primary liveAlertBtn" style="width: 70px;"> -->
@@ -119,11 +120,13 @@
             echo '<td>' . htmlspecialchars($row['qty']) . '</td>';
             echo '<td>' . htmlspecialchars($row['price']) . '</td>';
             echo '<td>' . htmlspecialchars($row['price'] * $row['qty']) . '</td>';
+            echo '<td><a href="removeToCart_action.php?item_id=' . urlencode($row['item_id']) . '" name="qty" value=""><i class="fa-solid fa-x"></i></a></td>';
+            
             echo '</tr>';
 
             echo '<input type="hidden" name="user_id" value="' . htmlspecialchars($_SESSION['user_id']) . '">';
-            echo '<input type="hidden" name="item_id[]" value="' . htmlspecialchars($row['item_id']) . '">';
-            echo '<input type="hidden" name="qty[]" value="' . htmlspecialchars($row['qty']) . '">';
+            echo '<input type="hidden" name="item_id" value="' . htmlspecialchars($row['item_id']) . '">';
+            echo '<input type="hidden" name="qty" value="' . htmlspecialchars($row['qty']) . '">';
           }
 
           echo '</tbody>';

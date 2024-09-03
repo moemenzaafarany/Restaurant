@@ -120,6 +120,8 @@
             echo '<td>' . htmlspecialchars($row['qty']) . '</td>';
             echo '<td>' . htmlspecialchars($row['price']) . '</td>';
             echo '<td>' . htmlspecialchars($row['price'] * $row['qty']) . '</td>';
+            echo '<td><a href="removeToCart_action.php?item_id=' . urlencode($row['item_id']) . '" name="qty" value=""><i class="fa-solid fa-x"></i></a></td>';
+            
             echo '</tr>';
 
             echo '<input type="hidden" name="user_id" value="' . htmlspecialchars($_SESSION['user_id']) . '">';
